@@ -31,7 +31,7 @@ function App() {
   const [guesses, setGuesses] = useState(guessesQtd);
   const [score, setScore] = useState(0);
 
-  const pickWordAndCategory = () => {
+  const pickWordAndCategory = useCallback (() => {
     // pick a radom category(Escolha uma categoria Radom)
     const categories = Object.keys(words);
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)];
@@ -45,11 +45,12 @@ function App() {
 
     return { word, category }
 
-  };
+  }, [words]);
 
   // start o Adivinhe a palavra
-  const startGame = () => {
-    
+  const startGame = useCallback (() => {
+    //clear all letters
+    clearLettersStates();
     // pick word an pick category (escolha a palavra uma categoria de escolha)
     const{word, category} = pickWordAndCategory();
 
@@ -68,7 +69,7 @@ function App() {
     setLetters(wordLetters);
 
     setGameStage(stages[1].name);
-  };
+  }, [pickWordAndCategory]);
 
   // (process the latter input) processar a carta input
   const verifyletter =(letter) => {
@@ -124,13 +125,13 @@ function App() {
     // win condition (condição de vitória)
     if(guessedLetters.length === uniqueLetters.length){
       // add score(adicionar pontuação)
-      setScore((actualScore) => actualScore == 100)
+      setScore((actualScore) => (actualScore += 100));
       
       //restart game with new word (reinicie o jogo com uma nova palavra)
       startGame();
     }
 
- }, [guessedLetters])
+ }, [guessedLetters, letters, startGame])
 
 
   //restarts the game (restart o jogo)
