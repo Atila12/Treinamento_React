@@ -27,6 +27,7 @@
      text-transform: uppercase;
      background-color: #fff;
      color: #000;
+     font-weight: bold;
 }
 
 .letterContainer p {
