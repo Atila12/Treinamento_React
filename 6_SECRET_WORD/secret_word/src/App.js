@@ -70,8 +70,35 @@ function App() {
 
   // (process the latter input) processar a carta input
   const verifyletter =(letter) => {
-    console.log(letter);
+    
+    const normalzedletter = letter.toLowerCase()
+
+    // check if  letter has already been utilized 
+    // (Verifique se a letra já foi utilizada)
+    if(guessedLetters.includes(normalzedletter) || 
+    wrongLetters.includes(normalzedletter)
+  ){
+    return;
+  }
+
+    // push guessed letter or remove a guess
+    // (Empurre a letra adivinhada ou remova uma palpite)
+
+    if(letters.includes(normalzedletter)) {
+      setGuessedLetters((actualGuessedLetters) =>[
+        ...actualGuessedLetters,
+        normalzedletter,
+      ])
+    } else {
+      setWrongLetters((actualWrongLetters) =>[
+        ...actualWrongLetters,
+        normalzedletter,
+      ]);
+    }
   };
+
+  console.log(guessedLetters);
+  console.log(wrongLetters);
 
   //(restart o jogo ) restarts the game
   const retry =() => {
