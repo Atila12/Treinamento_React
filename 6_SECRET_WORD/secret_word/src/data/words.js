@@ -6,5 +6,6 @@ export const wordsList = {
     programação :["Linguagem","Framework","Javascript","React"],
     alimento :["Arroz","Feijão","Carne","Leite","Ovo"],
     paulinho :["Baitola","Urubu","Urugutando","Gay","Gulira"],
-    Gustavo : ["Porpetone","manja rola","mama bife","almondegão","louco"]
+    Gustavo : ["Porpetone","manja rola","mama bife","almondegão","louco"],
+    Atila :["Senior","Sem promoção","Sortudo","Idiota","Trouxa"]
 };

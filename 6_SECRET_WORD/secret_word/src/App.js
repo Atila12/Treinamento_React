@@ -16,6 +16,8 @@ const stages = [
   { id: 3, name: "end" },
 ];
 
+const guessesQtd = 3
+
 function App() {
   const [gameStage, setGameStage] = useState(stages[0].name);
   const [words] = useState(wordsList);
@@ -26,17 +28,17 @@ function App() {
 
   const [guessedLetters, setGuessedLetters] = useState([]);
   const [wrongLetters, setWrongLetters] = useState([]);
-  const [guesses, setGuesses] = useState(3);
+  const [guesses, setGuesses] = useState(guessesQtd);
   const [score, setScore] = useState(0);
 
   const pickWordAndCategory = () => {
-    // pick a radom category
+    // pick a radom category(Escolha uma categoria Radom)
     const categories = Object.keys(words);
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)];
 
     console.log(category);
 
-    // pick a radom word
+    // pick a radom word (escolha uma palavra radom)
     const word = words[category][Math.floor(Math.random() * words[category].length)];
 
     console.log(word);
@@ -48,10 +50,10 @@ function App() {
   // start o Adivinhe a palavra
   const startGame = () => {
     
-    // pick word an pick category
+    // pick word an pick category (escolha a palavra uma categoria de escolha)
     const{word, category} = pickWordAndCategory();
 
-    // create an  array of letters
+    // create an  array of letters (Crie uma matriz de letras)
     let wordLetters = word.split("");
 
     wordLetters = wordLetters.map((l) => l.toLowerCase());
@@ -59,7 +61,7 @@ function App() {
     console.log(word, category);
     console.log(wordLetters);
 
-    //fill states
+    //fill states (estados de preenchimento)
 
     setPickedWord(word);
     setPickedCategory(category);
@@ -72,18 +74,14 @@ function App() {
   const verifyletter =(letter) => {
     
     const normalzedletter = letter.toLowerCase()
-
-    // check if  letter has already been utilized 
-    // (Verifique se a letra já foi utilizada)
+    // check if  letter has already been utilized (Verifique se a letra já foi utilizada)
     if(guessedLetters.includes(normalzedletter) || 
     wrongLetters.includes(normalzedletter)
   ){
     return;
   }
 
-    // push guessed letter or remove a guess
-    // (Empurre a letra adivinhada ou remova uma palpite)
-
+    // push guessed letter or remove a guess (Empurre a letra adivinhada ou remova uma palpite)
     if(letters.includes(normalzedletter)) {
       setGuessedLetters((actualGuessedLetters) =>[
         ...actualGuessedLetters,
@@ -99,17 +97,47 @@ function App() {
     }
   };
 
- useEffect(() => {
+
+  const clearLettersStates = () => {
+
+    setGuessedLetters([]);
+    setWrongLetters([]);
+
+};
+
+//check if guesses ended(Verifique se os palpites terminaram)
+  useEffect(() => {
 
   if(guesses <= 0){
     //reset all states (Redefinir todos os estados)
+    clearLettersStates()
     setGameStage(stages[2].name);
   }
-
  }, [guesses]);
 
-  //(restart o jogo ) restarts the game
+ // check win condition (verifique a condição de vitória)
+
+  useEffect(() => {
+
+    const uniqueLetters = [...new Set(letters)];
+    
+    // win condition (condição de vitória)
+    if(guessedLetters.length === uniqueLetters.length){
+      // add score(adicionar pontuação)
+      setScore((actualScore) => actualScore == 100)
+      
+      //restart game with new word (reinicie o jogo com uma nova palavra)
+      startGame();
+    }
+
+ }, [guessedLetters])
+
+
+  //restarts the game (restart o jogo)
   const retry =() => {
+
+    setScore(0);
+    setGuesses(guessesQtd);
     setGameStage(stages[0].name);
   };
 
@@ -128,7 +156,7 @@ function App() {
         score={score} 
 
         />)}
-        {gameStage === "end" && <GameOver retry={retry} />}
+        {gameStage === "end" && <GameOver retry={retry} score={score} />}
     </div>
   );
 };
