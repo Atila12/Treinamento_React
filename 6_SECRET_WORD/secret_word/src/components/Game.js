@@ -25,7 +25,6 @@ const Game = ({
         letterInputRef.current.focus();
     }
     return (
-
         <div className="game">
     
             <p className="points">
@@ -35,7 +34,7 @@ const Game = ({
             <h3 className="tip">
                 Dica sobre a palavra: <span>{pickedCategory}</span>
             </h3>
-            <p>Você ainda tem {guesses} tentativas(s).</p>
+              <p className="tbranco"> Você ainda tem {guesses} tentativas(s).</p>
           <div className="wordContainer">
             {letters.map((letter,i) => 
                 guessedLetters.includes(letter) ? (

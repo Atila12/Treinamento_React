@@ -16,7 +16,7 @@ const stages = [
   { id: 3, name: "end" },
 ];
 
-const guessesQtd = 3
+const guessesQtd = 5
 
 function App() {
   const [gameStage, setGameStage] = useState(stages[0].name);
@@ -34,6 +34,7 @@ function App() {
   const pickWordAndCategory = useCallback (() => {
     // pick a radom category(Escolha uma categoria Radom)
     const categories = Object.keys(words);
+
     const category = categories[Math.floor(Math.random() * Object.keys(categories).length)];
 
     console.log(category);
@@ -95,9 +96,9 @@ function App() {
       ]);
 
       setGuesses((actualGuesses) => actualGuesses - 1);
+
     }
   };
-
 
   const clearLettersStates = () => {
 
@@ -114,27 +115,29 @@ function App() {
     clearLettersStates()
     setGameStage(stages[2].name);
   }
- }, [guesses]);
+  if (guesses <= 3) {
+    <p className="tbranco"> Você ainda tem {guesses} tentativas(s).</p>
+  } else {
+    <p className="tred"> Você ainda tem {guesses} tentativas(s).</p>
+  } 
+  }, [guesses]);
 
  // check win condition (verifique a condição de vitória)
 
   useEffect(() => {
-
-    const uniqueLetters = [...new Set(letters)];
-    
+    const uniqueLetters = [...new Set(letters)];    
     // win condition (condição de vitória)
     if(guessedLetters.length === uniqueLetters.length){
       // add score(adicionar pontuação)
-      setScore((actualScore) => (actualScore += 100));
-      
+      setScore((actualScore) => (actualScore += 100));    
       //restart game with new word (reinicie o jogo com uma nova palavra)
       startGame();
     }
 
  }, [guessedLetters, letters, startGame])
+ 
+ //restarts the game (restart o jogo)
 
-
-  //restarts the game (restart o jogo)
   const retry =() => {
 
     setScore(0);
@@ -154,8 +157,7 @@ function App() {
         guessedLetters={guessedLetters}
         wrongLetters={wrongLetters}
         guesses={guesses}
-        score={score} 
-
+        score={score}
         />)}
         {gameStage === "end" && <GameOver retry={retry} score={score} />}
     </div>
