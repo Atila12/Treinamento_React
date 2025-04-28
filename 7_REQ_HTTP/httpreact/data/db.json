@@ -1,19 +1,29 @@
 {
-    "products":[
-        {
-            "id":1,
-            "name": "Camila",
-            "price": 59.9
-        },
-        {
-            "id":2,
-            "name": "Calça vermelha",
-            "price": 90
-        },
-        {
-            "id":3,
-            "name": "Boné aba reta",
-            "price": 59.9
-        }
-    ]
+  "products": [
+    {
+      "id": 1,
+      "name": "Camila",
+      "price": 59.9
+    },
+    {
+      "id": 2,
+      "name": "Calça vermelha",
+      "price": 90
+    },
+    {
+      "id": 3,
+      "name": "Boné aba reta",
+      "price": 59.9
+    },
+    {
+      "id": "7a52",
+      "name": "Atila",
+      "price": "12"
+    },
+    {
+      "id": "6780",
+      "name": "Sistema",
+      "price": "100.00"
+    }
+  ]
 }

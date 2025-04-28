@@ -26,8 +26,21 @@ function App() {
 
   // adicionar produtos
   const handleSubmit = async (e) => {
+    e.preventDefault();
+    
+    const product = {
+      name,
+      price,
+    };
 
-  }
+    const res = await fetch(url, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json"
+      },
+      body: JSON.stringify(product),
+    });
+  };
 
   return (
     <div className="App">
