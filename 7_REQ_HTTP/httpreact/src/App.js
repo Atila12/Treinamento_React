@@ -45,6 +45,10 @@ function App() {
     const addedProduct = await res.json();
 
     setProducts((prevProducts) => [...prevProducts, addedProduct]);
+
+    //reseta os states, ou limpeza dos inputs
+    setName("");
+    setPrice("");
   };
 
   return (
