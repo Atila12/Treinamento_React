@@ -33,13 +33,18 @@ function App() {
       price,
     };
 
-    const res = await fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-type": "application/json"
-      },
+  const res = await fetch(url, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
       body: JSON.stringify(product),
     });
+
+    //carregamento dinâmico
+    const addedProduct = await res.json();
+
+    setProducts((prevProducts) => [...prevProducts, addedProduct]);
   };
 
   return (
