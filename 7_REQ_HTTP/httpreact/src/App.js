@@ -4,14 +4,14 @@ import { useState, useEffect } from  "react";
 import { useFetch } from './hooks/useFetch';
 
 // URL base da API
-const url = "http://localhost:3000/products"
+const url = "http://localhost:3001/products"
 
 function App() {
   // salvando os dados 
   const [products, setProducts] = useState([]);
 
   // custom
-  const { data: items, httpConfig, loading } = useFetch(url);
+  const { data: items, httpConfig, loading, error } = useFetch(url);
 
   const [name, setName] = useState("");
   const [price, setPrice] = useState ("");
@@ -90,7 +90,12 @@ function App() {
             name="price" 
             onChange={(e) => setPrice(e.target.value)}/>
           </label>
-          <input type='submit' value="Criar" />         
+
+          {/* state de loading no post */}
+          {loading && <input type="submit" disabled valeu="Aguarde" />}
+          {error && <p>{error}</p>}
+          {!loading && <input type='submit' value="Criar" />}  
+          {!loading && <input type='submit' value="Deletar" />}      
         </form>
       </div>
     </div>

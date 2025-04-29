@@ -54,6 +54,16 @@
       "id": "79bc",
       "name": "celular",
       "price": "2500.00"
+    },
+    {
+      "id": "87ac",
+      "name": "Cabo HDMI",
+      "price": "15.00"
+    },
+    {
+      "id": "c35a",
+      "name": "Iphone 17",
+      "price": "16000.00"
     }
   ]
 }

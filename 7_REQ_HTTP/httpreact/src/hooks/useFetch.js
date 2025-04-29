@@ -13,6 +13,9 @@ import { useState, useEffect } from "react";
     //LOADING
     const[loading, setLoading] = useState(false);
 
+    // tratando erro
+    const [error, setError] = useState(null);
+
     const httpConfig = (data, method) => {
         if(method === "POST") {
             setConfig({
@@ -35,11 +38,19 @@ import { useState, useEffect } from "react";
 
             setLoading(true);
 
-            const res = await fetch(url);
+            try {
 
-            const json = await res.json();
+                const res = await fetch(url);
 
-            setData(json);
+                const json = await res.json();
+    
+                setData(json); 
+
+            } catch (error) {
+                console.log(error.message)
+                
+                setError("Houve algum erro ao carregar os dados!")
+            }
 
             setLoading(false);
         }
@@ -66,6 +77,6 @@ import { useState, useEffect } from "react";
 
     }, [config, method, url])
 
-    return { data, httpConfig, loading };
+    return { data, httpConfig, loading, error };
 
  };
