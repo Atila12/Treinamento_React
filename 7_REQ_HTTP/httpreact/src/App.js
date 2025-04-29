@@ -1,6 +1,7 @@
 import './App.css';
-
 import { useState, useEffect } from  "react";
+// custom hook
+import { useFetch } from './hooks/useFetch';
 
 // URL base da API
 const url = "http://localhost:3000/products"
@@ -8,21 +9,25 @@ const url = "http://localhost:3000/products"
 function App() {
   // salvando os dados 
   const [products, setProducts] = useState([]);
+
+  // custom
+  const { data: items, httpConfig } = useFetch(url);
+
   const [name, setName] = useState("");
   const [price, setPrice] = useState ("");
 
   // resgantando dados.
-  useEffect(() => {
-    async function fetchData() {
-
-      const res = await fetch(url);
-      const data = await res.json();
-  
-      setProducts(data);
-  
-    }
-    fetchData();
-  }, []);
+  //useEffect(() => {
+  //  async function fetchData() {
+//
+  //    const res = await fetch(url);
+  //    const data = await res.json();
+  //
+  //    setProducts(data);
+  //
+  //  }
+  //  fetchData();
+  //}, []);
 
   // adicionar produtos
   const handleSubmit = async (e) => {
@@ -33,20 +38,22 @@ function App() {
       price,
     };
 
-  const res = await fetch(url, {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-      body: JSON.stringify(product),
-    });
-
-    //carregamento dinâmico
-    const addedProduct = await res.json();
-
-    setProducts((prevProducts) => [...prevProducts, addedProduct]);
-
-    //reseta os states, ou limpeza dos inputs
+  //const res = await fetch(url, {
+  //  method: "POST",
+  //  headers: {
+  //    "Content-Type": "application/json"
+  //  },
+  //    body: JSON.stringify(product),
+  //  });
+//
+  //  //carregamento dinâmico
+  //  const addedProduct = await res.json();
+//
+  //  setProducts((prevProducts) => [...prevProducts, addedProduct]);
+//
+  //  //reseta os states, ou limpeza dos inputs
+    httpConfig(product, "POST");
+  // Refatorando post
     setName("");
     setPrice("");
   };
@@ -55,7 +62,7 @@ function App() {
     <div className="App">
       <h1>Lista de Produtos</h1>
       <ul>
-        {products.map((product) => (
+        {items && items.map((product) => (
           <li key={product.id}>
             {product.name} - R$: {product.price}
           </li>

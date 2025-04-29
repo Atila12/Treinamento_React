@@ -29,6 +29,26 @@
       "id": "80a9",
       "name": "Uva",
       "price": "18.00"
+    },
+    {
+      "id": "8922",
+      "name": "calça jeans",
+      "price": "100.00"
+    },
+    {
+      "id": "f244",
+      "name": "tennis nike ",
+      "price": "900.00"
+    },
+    {
+      "id": "84d1",
+      "name": "camisa",
+      "price": "80.00"
+    },
+    {
+      "id": "c7c9",
+      "name": "blusa de frio",
+      "price": "60.00"
     }
   ]
 }
