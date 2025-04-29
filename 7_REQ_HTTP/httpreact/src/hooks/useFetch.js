@@ -10,6 +10,9 @@ import { useState, useEffect } from "react";
     const [method, setMethod] = useState(null);
     const [callFetch, setCallFetch] = useState (false);
 
+    //LOADING
+    const[loading, setLoading] = useState(false);
+
     const httpConfig = (data, method) => {
         if(method === "POST") {
             setConfig({
@@ -28,11 +31,17 @@ import { useState, useEffect } from "react";
 
         const fetchData = async () => {
 
+            // loading
+
+            setLoading(true);
+
             const res = await fetch(url);
 
             const json = await res.json();
 
             setData(json);
+
+            setLoading(false);
         }
         fetchData();
     }, [url, callFetch]);
@@ -57,6 +66,6 @@ import { useState, useEffect } from "react";
 
     }, [config, method, url])
 
-    return { data, httpConfig };
+    return { data, httpConfig, loading };
 
  };
