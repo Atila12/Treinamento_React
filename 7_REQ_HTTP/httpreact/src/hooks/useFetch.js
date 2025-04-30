@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
  // custom hook
-
  export const useFetch = (url) => {
     const [data, setData] = useState(null);
 
@@ -16,8 +15,12 @@ import { useState, useEffect } from "react";
     // tratando erro
     const [error, setError] = useState(null);
 
+    //DESAFIO 
+
+    const [itemId, setItemId] = useState (null);
+
     const httpConfig = (data, method) => {
-        if(method === "POST") {
+        if (method === "POST") {
             setConfig({
                 method,
                 headers: {
@@ -26,10 +29,18 @@ import { useState, useEffect } from "react";
                 body: JSON.stringify(data),
             });
 
-            setMethod(method);
-        }
-    }
-
+          setMethod(method);
+        } else if (method === "DELETE") {
+            setConfig({
+            method,
+            headers: {
+                "Content-type": "application/json",
+            }
+        });
+        setMethod(method);
+        setItemId(data);
+       }
+    };
     useEffect(() => {
 
         const fetchData = async () => {
@@ -47,19 +58,21 @@ import { useState, useEffect } from "react";
                 setData(json); 
 
             } catch (error) {
-                console.log(error.message)
+                console.log(error.message);
                 
                 setError("Houve algum erro ao carregar os dados!")
             }
 
             setLoading(false);
-        }
+        };
         fetchData();
     }, [url, callFetch]);
 
     //Refatorando post
     useEffect(() => {
-        const httpResquest = async() =>{
+        const httpResquest = async () => {
+
+            let json
 
         if(method === "POST") {
 
@@ -67,16 +80,24 @@ import { useState, useEffect } from "react";
 
             const res = await fetch(...fetchOptions);
 
-            const json = await res.json();
+            json = await res.json();
 
-            setCallFetch(json);
+           
+        } else if (method === "DELETE") {
+
+            const deleteUrl = `${url}/${itemId}`;
+
+            const res = await fetch(deleteUrl, config);
+
+            json = await res.json();
+
         }
-    }
+        setCallFetch(json);
+    };
 
     httpResquest();
 
-    }, [config, method, url])
+    }, [config, method, url]);
 
-    return { data, httpConfig, loading, error };
-
+    return { data, httpConfig, loading, error }
  };

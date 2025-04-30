@@ -4,7 +4,7 @@ import { useState, useEffect } from  "react";
 import { useFetch } from './hooks/useFetch';
 
 // URL base da API
-const url = "http://localhost:3001/products"
+const url = "http://localhost:3000/products"
 
 function App() {
   // salvando os dados 
@@ -58,6 +58,12 @@ function App() {
     setPrice("");
   };
 
+  // desafio
+
+  const handleRemove = (id) => {
+    httpConfig(id, "DELETE");
+  }
+
   return (
     <div className="App">
       <h1>Lista de Produtos</h1>
@@ -68,6 +74,7 @@ function App() {
         {items && items.map((product) => (
           <li key={product.id}>
             {product.name} - R$: {product.price}
+            <button onClick={() => handleRemove(product.id)}>Excluir</button>
           </li>
         ))}
       </ul>
@@ -94,8 +101,7 @@ function App() {
           {/* state de loading no post */}
           {loading && <input type="submit" disabled valeu="Aguarde" />}
           {error && <p>{error}</p>}
-          {!loading && <input type='submit' value="Criar" />}  
-          {!loading && <input type='submit' value="Deletar" />}      
+          {!loading && <input type='submit' value="Criar" />}     
         </form>
       </div>
     </div>
