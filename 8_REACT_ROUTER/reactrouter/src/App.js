@@ -1,11 +1,12 @@
 import './App.css';
 // importar os pacotes de react router
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+//components
+import Navbar from "./Components/Navbar";
 //importando as  paginas 
 import Home from "./Pages/Home";
 import About from "./Pages/About";
-//components
-import Navbar from "./Components/Navbar";
+import Product from './Pages/Product';
 
 function App() {
   return (
@@ -17,6 +18,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          {/* Rota dinamica */}
+          <Route path="/products/:id" element={<Product />} />
         </Routes>
       </BrowserRouter>
     </div>
