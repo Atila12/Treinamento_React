@@ -6,12 +6,16 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 //components
 import Navbar from "./Components/Navbar";
 
+import SearchForm from "./Components/SearchForm";
+
 //importando as  paginas 
 import Home from "./Pages/Home";
 import About from "./Pages/About";
 import Product from './Pages/Product';
 import Info from './Pages/info';
 import NotFound from './Pages/NotFound';
+import Search from './Pages/Search';
+
 
 function App() {
   return (
@@ -20,6 +24,8 @@ function App() {
       <BrowserRouter>
         {/* links com react router */}
         <Navbar />
+        {/* search */}
+        <SearchForm />
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
@@ -27,6 +33,8 @@ function App() {
           <Route path="/products/:id/info" element={<Info />} />
           {/* Rota dinamica */}
           <Route path="/products/:id" element={<Product />} />
+          {/* search */}
+          <Route path="/seach" element={<Search />} />
           {/* no match route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
