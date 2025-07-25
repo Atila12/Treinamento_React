@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+import { useNavigate } from "react-router-dom"
 
 import { useState } from "react"
 
@@ -8,7 +8,6 @@ const SearchForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-
 
         navigate("/search?q=" + query);
     };
@@ -20,5 +19,4 @@ const SearchForm = () => {
         </form>
     );
 };
-
 export default SearchForm

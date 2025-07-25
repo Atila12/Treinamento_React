@@ -1,7 +1,7 @@
 import './App.css';
 
 // importar os pacotes de react router
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 
 //components
 import Navbar from "./Components/Navbar";
@@ -20,7 +20,7 @@ import Search from './Pages/Search';
 function App() {
   return (
     <div className="App">
-      <h1>REACT ROUTER</h1>
+      <h1>Sistema de Vendas</h1>
       <BrowserRouter>
         {/* links com react router */}
         <Navbar />
@@ -34,7 +34,9 @@ function App() {
           {/* Rota dinamica */}
           <Route path="/products/:id" element={<Product />} />
           {/* search */}
-          <Route path="/seach" element={<Search />} />
+          <Route path="/search" element={<Search />} />
+          {/* redirect */}
+          <Route path="/company" element={<Navigate to="/about" />} />
           {/* no match route */}
           <Route path="*" element={<NotFound />} />
         </Routes>
